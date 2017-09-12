@@ -1,0 +1,40 @@
+---
+- name: Check if sshd moduli were already generated
+  stat:
+    path: /etc/ssh/.moduli-generated
+  register: sshd_moduli
+
+- name: Check if sshd moduli are currently being generated
+  stat:
+    path: /etc/ssh/.moduli-generating
+  register: sshd_moduli_generating
+
+- name: Generate sshd moduli
+  shell: >
+    touch /etc/ssh/.moduli-generating;
+    ssh-keygen -G /etc/ssh/moduli.4096.all -b 4096; ssh-keygen -G /etc/ssh/moduli.8192.all -b 8192;
+    ssh-keygen -T /etc/ssh/moduli.4096.safe -f /etc/ssh/moduli.4096.all; ssh-keygen -T /etc/ssh/moduli.8192.safe -f /etc/ssh/moduli.8192.all;
+    cat /etc/ssh/moduli.4096.safe /etc/ssh/moduli.8192.safe > /etc/ssh/moduli; rm /etc/ssh/.moduli-generating; touch /etc/ssh/.moduli-generated
+  async: 31557600 # Wait up to one year for completion
+  poll: 0 # Don't wait for the task to complete
+  when: not sshd_moduli.stat.exists and not sshd_moduli_generating.stat.exists
+
+- name: Set correct permissions on moduli
+  file:
+    path: /etc/ssh/moduli
+    state: file
+    owner: root
+    group: root
+    mode: 0600
+  when: sshd_moduli.stat.exists
+
+- name: Clean up moduli files
+  file:
+    path: /etc/ssh/{{ item }}
+    state: absent
+  with_items:
+    - moduli.4096.all
+    - moduli.8192.all
+    - moduli.4096.safe
+    - moduli.8192.safe
+  when: not sshd_moduli_generating.stat.exists

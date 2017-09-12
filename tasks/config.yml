@@ -1,0 +1,22 @@
+---
+- name: Generate sshd configuration
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  vars:
+    config: "{{ sshd_config.config | default({}) }}"
+    userMatches: "{{ sshd_config.userMatches | default({}) }}"
+    groupMatches: "{{ sshd_config.groupMatches | default({}) }}"
+    hostMatches: "{{ sshd_config.hostMatches | default({}) }}"
+  notify: Restart sshd
+
+- name: Generate ssh configuration
+  template:
+    src: ssh_config.j2
+    dest: /etc/ssh/ssh_config
+    owner: root
+    group: root
+    mode: 0644

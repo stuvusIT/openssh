@@ -1,0 +1,28 @@
+galaxy_info:
+  author: Janne Heß
+  description: Set up and configure an OpenSSH daemon and client
+  company: stuvus (https://stuvus.uni-stuttgart.de)
+
+  license: CC-BY-SA
+
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - yakkety
+    - name: Debian
+      versions:
+        - jessie
+    - name: Archlinux
+      versions:
+        - all
+        - any
+
+  galaxy_tags:
+    - openssh
+    - ssh
+    - sshd
+    - moduli
+
+dependencies: []

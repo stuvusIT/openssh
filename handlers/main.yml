@@ -1,0 +1,16 @@
+---
+- name: Restart sshd on Arch Linux
+  service:
+    name: sshd.service
+    state: restarted
+    enabled: true
+  when: ansible_distribution == "Archlinux"
+  listen: Restart sshd
+
+- name: Restart sshd on Ubuntu
+  service:
+    name: ssh.service
+    state: restarted
+    enabled: true
+  when: ansible_distribution == "Ubuntu"
+  listen: Restart sshd
