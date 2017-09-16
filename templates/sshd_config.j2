@@ -1,0 +1,33 @@
+# {{ ansible_managed }}
+
+# General configuration
+{% for k,v in config.items() %}
+{{ k }} {{ v }}
+{% endfor %}
+
+# User matches
+{% for match,content in userMatches.items() %}
+Match User {{ match }}
+{% for k,v in content.items() %}
+	{{ k }} {{ v }}
+{% endfor %}
+
+{% endfor %}
+
+# Group matches
+{% for match,content in groupMatches.items() %}
+Match Group {{ match }}
+{% for k,v in content.items() %}
+	{{ k }} {{ v }}
+{% endfor %}
+
+{% endfor %}
+
+# Host matches
+{% for match,content in hostMatches.items() %}
+Match Host {{ match }}
+{% for k,v in content.items() %}
+	{{ k }} {{ v }}
+{% endfor %}
+
+{% endfor %}
