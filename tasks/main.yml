@@ -23,5 +23,5 @@
   notify: Restart sshd
   when: ansible_pkg_mgr == "pacman"
 
-- include: config.yml
-- include: moduli.yml
+- import_tasks: config.yml
+- import_tasks: moduli.yml
