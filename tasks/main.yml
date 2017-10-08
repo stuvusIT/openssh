@@ -24,4 +24,8 @@
   when: ansible_pkg_mgr == "pacman"
 
 - import_tasks: config.yml
+  tags:
+   - ssh_config
 - import_tasks: moduli.yml
+  tags:
+   - ssh_moduli
