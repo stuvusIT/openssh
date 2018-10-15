@@ -5,7 +5,7 @@ A new moduli file consisting only of 4096 and 8192 bit moduli is created asynchr
 
 ## Requirements
 
-Ubuntu or Arch Linux
+Debian or Ubuntu
 
 ## Role Variables
 
