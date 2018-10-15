@@ -13,11 +13,7 @@ galaxy_info:
         - yakkety
     - name: Debian
       versions:
-        - jessie
-    - name: Archlinux
-      versions:
-        - all
-        - any
+        - stretch
 
   galaxy_tags:
     - openssh
