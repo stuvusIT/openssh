@@ -6,6 +6,7 @@
     owner: root
     group: root
     mode: 0644
+    validate: /usr/sbin/sshd -t -f %s
   vars:
     config: "{{ sshd_config.config | default({}) }}"
     userMatches: "{{ sshd_config.userMatches | default({}) }}"
